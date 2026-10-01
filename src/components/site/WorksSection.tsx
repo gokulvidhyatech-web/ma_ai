@@ -68,6 +68,7 @@ function HorizontalVideoCard({ p, index, onPlayFullscreen }: { p: typeof worksDa
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className="group relative rounded-[20px] overflow-hidden bg-[var(--site-bg)] dark:bg-transparent border border-[var(--site-border)] transition-shadow hover:shadow-xl cursor-pointer flex flex-col"
+      style={{ willChange: 'opacity, transform', transform: 'translateZ(0)' }}
       onClick={() => onPlayFullscreen(p.video)}
     >
       <div className="relative h-[220px] md:h-[260px] overflow-hidden bg-[#05050A]">
@@ -78,6 +79,7 @@ function HorizontalVideoCard({ p, index, onPlayFullscreen }: { p: typeof worksDa
           playsInline
           loop={false}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          style={{ willChange: 'transform' }}
         />
 
         <div className={`absolute top-4 right-4 transition-opacity duration-300 z-10 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>

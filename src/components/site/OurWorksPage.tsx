@@ -78,7 +78,11 @@ function VideoCard({ p, index, onPlayFullscreen }: { p: VideoItem; index: number
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className="group relative rounded-[20px] overflow-hidden border border-[var(--site-border)] transition-shadow hover:shadow-xl cursor-pointer flex flex-col"
-      style={{ backgroundColor: 'var(--site-bg)' }}
+      style={{ 
+        backgroundColor: 'var(--site-bg)',
+        willChange: 'opacity, transform',
+        transform: 'translateZ(0)'
+      }}
       onClick={() => onPlayFullscreen(p.video)}
     >
       <div className="relative h-[220px] md:h-[260px] overflow-hidden bg-[#05050A]">
@@ -89,6 +93,7 @@ function VideoCard({ p, index, onPlayFullscreen }: { p: VideoItem; index: number
           playsInline
           loop={false}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          style={{ willChange: 'transform' }}
         />
 
         <div className={`absolute top-4 right-4 transition-opacity duration-300 z-10 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>

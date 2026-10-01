@@ -194,9 +194,6 @@ const HeroSection = ({ introPhase }: { introPhase: 'video' | 'nav' | 'complete' 
         }} 
         className="absolute bottom-10 left-6 md:left-16 lg:left-24 z-20 flex gap-6 md:gap-10"
       >
-        <a href="https://www.youtube.com/@maaicreative" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white text-[11px] font-bold tracking-[0.15em] uppercase transition-colors">
-          YouTube
-        </a>
         <a href="https://www.instagram.com/ma.ai.creative" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white text-[11px] font-bold tracking-[0.15em] uppercase transition-colors">
           Instagram
         </a>

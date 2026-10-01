@@ -148,15 +148,7 @@ function MembersPage() {
               </motion.div>
             ))}
 
-            {/* Remaining empty slots */}
-            {Array.from({ length: TOTAL_GRID_SLOTS - gridMembers.length }).map((_, i) => (
-              <div 
-                key={`empty-${i}`} 
-                className="aspect-square bg-black/5 border border-[var(--site-border)] rounded-2xl flex items-center justify-center relative overflow-hidden group hover:border-[#8B5CF6] transition-colors"
-              >
-                <span className="text-black/20 font-bold text-xl group-hover:text-[#8B5CF6]/50 transition-colors">#{gridMembers.length + i + 1}</span>
-              </div>
-            ))}
+
           </div>
         </motion.div>
       </Section>
