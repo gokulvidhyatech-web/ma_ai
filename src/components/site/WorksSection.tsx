@@ -60,12 +60,11 @@ function HorizontalVideoCard({ p, index, onPlayFullscreen }: { p: typeof worksDa
 
   return (
     <motion.article
-      layout
-      initial={{ opacity: 0, x: -40 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: 40, scale: 0.95 }}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ delay: index * 0.1, duration: 0.5, ease: "easeOut" }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className="group relative rounded-[20px] overflow-hidden bg-[var(--site-bg)] dark:bg-transparent border border-[var(--site-border)] transition-shadow hover:shadow-xl cursor-pointer flex flex-col"
@@ -108,7 +107,7 @@ function HorizontalVideoCard({ p, index, onPlayFullscreen }: { p: typeof worksDa
         <p className="text-[14px] text-gray-500 mb-6 flex-grow leading-relaxed">{p.desc}</p>
 
         <div className="flex items-center text-[12px] font-bold text-black dark:text-white tracking-widest uppercase mt-auto">
-          EXPLORE SYSTEM <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
+          VIEW VIDEO <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
         </div>
       </div>
     </motion.article>
@@ -162,7 +161,7 @@ export const WorksSection = ({ standalone }: Props) => {
         <hr className="border-[var(--site-border)] mb-12" />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-          <AnimatePresence mode="popLayout">
+          <AnimatePresence mode="wait">
             {visibleWorks.slice(0, 3).map((work, i) => (
               <HorizontalVideoCard key={work.id} p={work} index={i} onPlayFullscreen={setFullscreenVideo} />
             ))}
@@ -178,12 +177,10 @@ export const WorksSection = ({ standalone }: Props) => {
                 key={cat.name}
                 aria-pressed={selected}
                 onClick={() => setCategory(cat.match)}
-                className={`group h-[42px] px-[13px] rounded-full border ${selected ? 'border-[#8B5CF6] bg-[#8B5CF6] text-white' : 'border-[var(--site-border)] text-[var(--site-fg)] bg-white dark:bg-transparent'} text-[11px] font-bold tracking-widest hover:bg-[#8B5CF6] hover:border-[#8B5CF6] hover:text-white transition-all duration-300 flex items-center uppercase overflow-hidden`}
+                className={`group h-[42px] px-6 rounded-full border ${selected ? 'border-[#8B5CF6] bg-[#8B5CF6] text-white' : 'border-[var(--site-border)] text-[var(--site-fg)] bg-white dark:bg-transparent'} text-[11px] font-bold tracking-widest hover:bg-[#8B5CF6] hover:border-[#8B5CF6] hover:text-white transition-all duration-300 flex items-center uppercase`}
               >
-                <div className="shrink-0 flex items-center justify-center">{cat.icon}</div>
-                <span className={`transition-all duration-300 whitespace-nowrap overflow-hidden inline-block flex items-center ${selected ? 'max-w-[200px] opacity-100 ml-2' : 'max-w-[200px] opacity-100 ml-2 md:max-w-0 md:opacity-0 md:ml-0 group-hover:max-w-[200px] group-hover:opacity-100 group-hover:ml-2'}`}>
-                  {cat.name}
-                </span>
+                <div className="shrink-0 flex items-center justify-center mr-2">{cat.icon}</div>
+                <span>{cat.name}</span>
               </button>
             );
           })}

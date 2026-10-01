@@ -118,7 +118,7 @@ function VideoCard({ p, index, onPlayFullscreen }: { p: VideoItem; index: number
         <p className="text-[14px] mb-6 flex-grow leading-relaxed" style={{ color: 'var(--site-muted)' }}>{p.desc}</p>
 
         <div className="flex items-center text-[12px] font-bold tracking-widest uppercase mt-auto" style={{ color: 'var(--site-fg)' }}>
-          EXPLORE SYSTEM <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
+          VIEW VIDEO <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
         </div>
       </div>
     </motion.article>

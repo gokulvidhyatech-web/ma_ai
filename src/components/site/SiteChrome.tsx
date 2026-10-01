@@ -325,15 +325,7 @@ export const SiteFooter = ({ hideCta = false }: { hideCta?: boolean }) => {
           </Link>
         </div>
 
-        <hr className="border-[var(--site-border)]" />
 
-        <div className="py-8 flex flex-col md:flex-row md:items-center gap-6 md:gap-8 mb-16 md:mb-24">
-          <span className="text-[11px] md:text-[12px] tracking-[0.1em] uppercase font-bold" style={{ color: 'var(--site-muted)' }}>BUILT IN CONVERSATION WITH</span>
-          <div className="flex items-center gap-6">
-            <img src="/gemini-logo.png" alt="Google Gemini" className="h-[28px] w-auto mix-blend-multiply object-contain" />
-            <img src="/meta-logo.png" alt="Meta" className="h-[28px] w-auto mix-blend-multiply object-contain" />
-          </div>
-        </div>
       </>
       )}
 
