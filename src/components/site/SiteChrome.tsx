@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from '@tanstack/react-router';
+import { Link, useLocation } from '@tanstack/react-router';
 import { Menu, X, ArrowRight, Instagram, Linkedin, Mail, Phone, MapPin, Sun, Moon } from 'lucide-react';
 import { MaLogo } from '../MaLogo';
 import { motion } from 'framer-motion';
@@ -401,6 +401,9 @@ const NewsletterForm = () => {
 };
 
 export const SiteFooter = ({ hideCta = false }: { hideCta?: boolean }) => {
+  const location = useLocation();
+  const isContactPage = location.pathname === '/contact';
+  
   const emails = [
     'meena.chabbria@maonline.ai',
     'prarthana.chabbria@maonline.ai',
@@ -444,9 +447,11 @@ export const SiteFooter = ({ hideCta = false }: { hideCta?: boolean }) => {
             {emails[emailIndex]}
           </a>
 
-          <Link to="/contact" className="group px-8 py-4 rounded-[40px] bg-[#111111] text-white hover:opacity-90 transition-opacity text-[13px] tracking-[0.08em] uppercase font-bold flex items-center justify-center gap-3">
-            MAKE IT MOVE <ArrowRight size={15} className="text-[#8B5CF6] group-hover:translate-x-1 transition-transform" />
-          </Link>
+          {!isContactPage && (
+            <Link to="/contact" className="group px-8 py-4 rounded-[40px] bg-[#111111] text-white hover:opacity-90 transition-opacity text-[13px] tracking-[0.08em] uppercase font-bold flex items-center justify-center gap-3">
+              MAKE IT MOVE <ArrowRight size={15} className="text-[#8B5CF6] group-hover:translate-x-1 transition-transform" />
+            </Link>
+          )}
         </div>
 
 
