@@ -128,6 +128,9 @@ export const SiteNav = ({
 }) => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [activePath, setActivePath] = useState(
+    typeof window !== 'undefined' ? window.location.pathname : '/'
+  );
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -140,6 +143,69 @@ export const SiteNav = ({
     document.body.style.overflow = open ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [open]);
+
+  // Set up intersection observers to automatically update activePath as the user scrolls
+  useEffect(() => {
+    const landingRoutes = ['/', '/about', '/brands', '/work', '/team', '/services', '/faq'];
+    if (!landingRoutes.includes(window.location.pathname)) return;
+
+    const sections = [
+      { id: 'about', path: '/about' },
+      { id: 'brands', path: '/brands' },
+      { id: 'work', path: '/work' },
+      { id: 'team', path: '/team' },
+      { id: 'services', path: '/services' },
+      { id: 'faq', path: '/faq' }
+    ];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Find the most visible section
+        let maxRatio = 0;
+        let visiblePath = '';
+        entries.forEach(entry => {
+          if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
+            maxRatio = entry.intersectionRatio;
+            const sec = sections.find(s => s.id === entry.target.id);
+            if (sec) visiblePath = sec.path;
+          }
+        });
+        
+        if (visiblePath && maxRatio > 0.3) {
+          if (activePath !== visiblePath) {
+            setActivePath(visiblePath);
+            // Silently update URL without triggering router
+            try {
+              const i = document.createElement('iframe');
+              i.style.display = 'none';
+              document.body.appendChild(i);
+              i.contentWindow?.history.replaceState.call(window.history, null, '', visiblePath);
+              document.body.removeChild(i);
+            } catch (e) {}
+          }
+        } else if (window.scrollY < 300) {
+          if (activePath !== '/') {
+            setActivePath('/');
+            try {
+              const i = document.createElement('iframe');
+              i.style.display = 'none';
+              document.body.appendChild(i);
+              i.contentWindow?.history.replaceState.call(window.history, null, '', '/');
+              document.body.removeChild(i);
+            } catch (e) {}
+          }
+        }
+      },
+      { threshold: [0.1, 0.3, 0.5, 0.8] }
+    );
+
+    sections.forEach(sec => {
+      const el = document.getElementById(sec.id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [activePath]);
 
   const isTransparentTop = !scrolled && transparentOnTop && !open;
 
@@ -162,17 +228,46 @@ export const SiteNav = ({
                 key={item.to}
                 to={item.to}
                 onClick={(e) => {
-                  if (item.to === '/') {
+                  const landingRoutes = ['/', '/about', '/brands', '/work', '/team', '/services', '/faq'];
+                  if (landingRoutes.includes(window.location.pathname) && landingRoutes.includes(item.to)) {
+                    e.preventDefault();
+                    const pathToId: Record<string, string> = {
+                      '/about': 'about',
+                      '/brands': 'brands',
+                      '/work': 'work',
+                      '/team': 'team',
+                      '/services': 'services',
+                      '/faq': 'faq'
+                    };
+                    const sectionId = pathToId[item.to];
+                    if (sectionId) {
+                      document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+                    } else if (item.to === '/') {
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                    setActivePath(item.to);
+                    try {
+                      const i = document.createElement('iframe');
+                      i.style.display = 'none';
+                      document.body.appendChild(i);
+                      i.contentWindow?.history.pushState.call(window.history, null, '', item.to);
+                      document.body.removeChild(i);
+                    } catch (e) {}
+                  } else if (item.to === '/') {
                     if (window.location.pathname === '/') {
                       e.preventDefault();
                     }
+                    setActivePath('/');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }
                 }}
                 className="hover:opacity-100 transition-colors"
-                style={{ color: 'inherit' }}
-                activeProps={{ style: { color: isTransparentTop ? '#ffffff' : 'var(--site-fg)', fontWeight: 'bold' } }}
-                activeOptions={{ exact: item.to === '/' }}
+                style={{ 
+                  color: activePath === item.to 
+                    ? (isTransparentTop ? '#ffffff' : 'var(--site-fg)') 
+                    : 'inherit',
+                  fontWeight: activePath === item.to ? 'bold' : 'inherit'
+                }}
               >
                 {item.label}
               </Link>
@@ -215,18 +310,47 @@ export const SiteNav = ({
                 key={item.to}
                 to={item.to}
                 onClick={(e) => {
-                  setOpen(false);
-                  if (item.to === '/') {
-                    if (window.location.pathname === '/') {
-                      e.preventDefault();
+                  const landingRoutes = ['/', '/about', '/brands', '/work', '/team', '/services', '/faq'];
+                  if (landingRoutes.includes(window.location.pathname) && landingRoutes.includes(item.to)) {
+                    e.preventDefault();
+                    setOpen(false);
+                    const pathToId: Record<string, string> = {
+                      '/about': 'about',
+                      '/brands': 'brands',
+                      '/work': 'work',
+                      '/team': 'team',
+                      '/services': 'services',
+                      '/faq': 'faq'
+                    };
+                    const sectionId = pathToId[item.to];
+                    if (sectionId) {
+                      document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+                    } else if (item.to === '/') {
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
                     }
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    setActivePath(item.to);
+                    try {
+                      const i = document.createElement('iframe');
+                      i.style.display = 'none';
+                      document.body.appendChild(i);
+                      i.contentWindow?.history.pushState.call(window.history, null, '', item.to);
+                      document.body.removeChild(i);
+                    } catch (e) {}
+                  } else {
+                    setOpen(false);
+                    if (item.to === '/') {
+                      if (window.location.pathname === '/') {
+                        e.preventDefault();
+                      }
+                      setActivePath('/');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
                   }
                 }}
                 className="py-4 border-b border-[var(--site-border)] text-[18px] font-bold tracking-[-0.03em] uppercase"
-                style={{ color: 'var(--site-fg)' }}
-                activeProps={{ style: { color: 'var(--site-fg)' } }}
-                activeOptions={{ exact: item.to === '/' }}
+                style={{ 
+                  color: activePath === item.to ? 'var(--site-fg)' : 'var(--site-muted)' 
+                }}
               >
                 {item.label}
               </Link>

@@ -205,11 +205,18 @@ const HeroSection = ({ introPhase }: { introPhase: 'video' | 'nav' | 'complete' 
   );
 };
 
+let hasPlayedIntro = false;
+
 export default function MaLanding() {
   const location = useLocation();
-  const [introPhase, setIntroPhase] = useState<'video' | 'nav' | 'complete'>('video');
+  const [introPhase, setIntroPhase] = useState<'video' | 'nav' | 'complete'>(
+    hasPlayedIntro ? 'complete' : 'video'
+  );
 
   useEffect(() => {
+    if (introPhase === 'complete') {
+      hasPlayedIntro = true;
+    }
     // Prevent scrolling while intro is playing
     if (introPhase !== 'complete' && introPhase !== 'nav') {
       document.body.style.overflow = 'hidden';
