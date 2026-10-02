@@ -16,6 +16,7 @@ import imgUnknown from '@/assets/ai_creators/WhatsApp Image 2026-09-10 at 00.15.
 import imgAyush from '@/assets/ai_creators/ayush - ai creator.jpeg';
 import imgAmarnath from '@/assets/ai_creators/Amarnath - ai creator.png';
 import imgTibin from '@/assets/ai_creators/Tibin ai creator.png';
+import imgDarshita from '@/assets/ai_creators/Darshita Maheswari.png';
 
 export const Route = createFileRoute('/members')({
   head: () => ({
@@ -60,7 +61,7 @@ const majorFigures = [
   }
 ];
 
-const gridMembers: { name: string; role: string; image: string; imagePosition?: string }[] = [
+const gridMembers: { name: string; role: string; image: string; imagePosition?: string; imageScale?: string; hoverScale?: string }[] = [
   { name: 'Adithya Krishna', role: 'AI Creator', image: imgAdithya },
   { name: 'Ajith', role: 'AI Creator', image: teamSouvik },
   { name: 'Syed Imran', role: 'AI Creator', image: imgImran, imagePosition: 'object-center' },
@@ -68,6 +69,7 @@ const gridMembers: { name: string; role: string; image: string; imagePosition?: 
   { name: 'Monish', role: 'AI Creator', image: imgUnknown },
   { name: 'Amarnath', role: 'AI Creator', image: imgAmarnath },
   { name: 'Tibin', role: 'AI Creator', image: imgTibin },
+  { name: 'Darshita Maheswari', role: 'AI Creator', image: imgDarshita, imagePosition: 'object-top', imageScale: 'scale-[1.35]', hoverScale: 'group-hover:scale-[1.45]' },
 ];
 
 const TOTAL_GRID_SLOTS = 20;
@@ -136,7 +138,7 @@ function MembersPage() {
                   decoding="async"
                   src={member.image}
                   alt={member.name || 'Team member'}
-                  className={`w-full h-full object-cover ${member.imagePosition || 'object-top'} grayscale opacity-70 group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-110 transition-[transform,opacity,filter] duration-500 will-change-transform`}
+                  className={`w-full h-full object-cover origin-top ${member.imagePosition || 'object-top'} ${member.imageScale || ''} grayscale opacity-70 group-hover:opacity-100 group-hover:grayscale-0 ${member.hoverScale || 'group-hover:scale-110'} transition-[transform,opacity,filter] duration-500 will-change-transform`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent z-10" />
                 <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4 z-20">
