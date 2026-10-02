@@ -482,18 +482,17 @@ export const SiteFooter = ({ hideCta = false }: { hideCta?: boolean }) => {
           <div>
             <h4 className="font-bold mb-6 md:mb-8 text-[12px] tracking-widest uppercase border-b-[2px] inline-block pb-2" style={{ color: 'var(--site-fg)', borderColor: 'var(--site-fg)' }}>Services</h4>
             <ul className="space-y-4 text-[14px] font-medium" style={{ color: 'var(--site-muted)' }}>
-              <li><Link to="/services" className="hover:opacity-80 transition-colors">AI Strategy</Link></li>
-              <li><Link to="/services" className="hover:opacity-80 transition-colors">Product Design</Link></li>
-              <li><Link to="/services" className="hover:opacity-80 transition-colors">Engineering</Link></li>
-              <li><Link to="/services" className="hover:opacity-80 transition-colors">Data & Intelligence</Link></li>
-              <li><Link to="/services" className="hover:opacity-80 transition-colors">Brand & Experience</Link></li>
+              <li><Link to="/services" className="hover:opacity-80 transition-colors">AI Video Production</Link></li>
+              <li><Link to="/services" className="hover:opacity-80 transition-colors">Video Production</Link></li>
+              <li><Link to="/services" className="hover:opacity-80 transition-colors">Performance Marketing</Link></li>
+              <li><Link to="/services" className="hover:opacity-80 transition-colors">Social Media Management</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-bold mb-6 md:mb-8 text-[12px] tracking-widest uppercase border-b-[2px] inline-block pb-2" style={{ color: 'var(--site-fg)', borderColor: 'var(--site-fg)' }}>Resources</h4>
             <ul className="space-y-4 text-[14px] font-medium" style={{ color: 'var(--site-muted)' }}>
-              <li><Link to="/work" className="hover:opacity-80 transition-colors">Case studies</Link></li>
+              <li><Link to="/work" className="hover:opacity-80 transition-colors">Our works</Link></li>
               <li><Link to="/faq" className="hover:opacity-80 transition-colors">FAQs</Link></li>
             </ul>
           </div>
