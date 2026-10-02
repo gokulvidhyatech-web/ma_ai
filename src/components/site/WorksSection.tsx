@@ -117,7 +117,6 @@ function HorizontalVideoCard({ p, index, onPlayFullscreen }: { p: typeof worksDa
 }
 
 const categories = [
-  { name: 'ALL WORK', icon: <Film size={16} />, match: null as string | null },
   { name: 'SHOWREEL / BRAND FILMS', icon: <Film size={16} />, match: 'Showreel / Brand Films' },
   { name: 'CLIENT CASE STUDIES', icon: <Target size={16} />, match: 'Client Case Studies' },
   { name: 'MICRO DRAMA SERIES', icon: <PlayCircle size={16} />, match: 'Micro Drama Series' },
@@ -131,7 +130,7 @@ interface Props {
 }
 
 export const WorksSection = ({ standalone }: Props) => {
-  const [category, setCategory] = useState<string | null>(null);
+  const [category, setCategory] = useState<string | null>('Showreel / Brand Films');
   const [fullscreenVideo, setFullscreenVideo] = useState<string | null>(null);
 
   const visibleWorks = category ? worksData.filter((w) => w.type === category) : worksData;
