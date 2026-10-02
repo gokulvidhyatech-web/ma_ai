@@ -13,7 +13,7 @@ export const SectionPageWrapper = ({ children }: { children: ReactNode }) => (
     <style>{fontStyles}</style>
     <div
       className="min-h-screen scroll-smooth transition-colors duration-300 relative overflow-hidden"
-      style={{ backgroundColor: 'var(--site-bg)', backgroundImage: 'var(--site-bg-image, none)', backgroundAttachment: 'fixed', color: 'var(--site-fg)', WebkitTextFillColor: 'inherit' }}
+      style={{ backgroundColor: 'var(--site-bg)', backgroundImage: 'var(--site-bg-image, none)', color: 'var(--site-fg)', WebkitTextFillColor: 'inherit' }}
     >
       <div className="dark:hidden"><AmbientOrb /></div>
       <SiteNav />

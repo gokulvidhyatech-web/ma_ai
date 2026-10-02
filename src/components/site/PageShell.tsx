@@ -15,7 +15,7 @@ export const PageShell = ({ index, eyebrow, title, accent, intro, children }: Pa
   return (
     <>
       <style>{fontStyles}</style>
-        <div className="min-h-screen transition-colors duration-300" style={{ backgroundColor: 'var(--site-bg)', backgroundImage: 'var(--site-bg-image, none)', backgroundAttachment: 'fixed', color: 'var(--site-fg)', WebkitTextFillColor: 'inherit' }}>
+        <div className="min-h-screen transition-colors duration-300" style={{ backgroundColor: 'var(--site-bg)', backgroundImage: 'var(--site-bg-image, none)', color: 'var(--site-fg)', WebkitTextFillColor: 'inherit' }}>
         <SiteNav />
         <main>
           <section className="relative pt-48 pb-24 overflow-hidden">
