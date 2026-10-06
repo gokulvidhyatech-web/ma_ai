@@ -249,23 +249,54 @@ export default function MaLanding() {
     };
 
     const sectionId = pathToId[location.pathname];
+    
+    // Custom smooth scroll function to prevent native lag
+    const smoothScrollTo = (targetPosition: number, duration: number = 800) => {
+      const startPosition = window.scrollY;
+      const distance = targetPosition - startPosition;
+      let startTime: number | null = null;
+
+      const easeInOutCubic = (t: number, b: number, c: number, d: number) => {
+        t /= d / 2;
+        if (t < 1) return c / 2 * t * t * t + b;
+        t -= 2;
+        return c / 2 * (t * t * t + 2) + b;
+      };
+
+      const animation = (currentTime: number) => {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const run = easeInOutCubic(timeElapsed, startPosition, distance, duration);
+        window.scrollTo(0, run);
+        if (timeElapsed < duration) {
+          requestAnimationFrame(animation);
+        }
+      };
+
+      requestAnimationFrame(animation);
+    };
+
     if (sectionId) {
-      // Small timeout to ensure DOM is ready
+      // Larger timeout to ensure DOM is fully rendered and main thread is unblocked
       setTimeout(() => {
         const element = document.getElementById(sectionId);
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
+          // Adjust for any fixed header height if needed, e.g., element.offsetTop - 80
+          const targetPosition = element.getBoundingClientRect().top + window.scrollY;
+          smoothScrollTo(targetPosition, 1000); // 1000ms duration for smoother feel
         }
-      }, 100);
+      }, 300);
     } else if (location.pathname === '/') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(() => {
+        smoothScrollTo(0, 1000);
+      }, 300);
     }
   }, [location.pathname]);
 
   return (
     <>
       <style>{fontStyles}</style>
-      <div className="min-h-screen scroll-smooth transition-colors duration-300 relative overflow-hidden" style={{ backgroundColor: 'var(--site-bg)', backgroundImage: 'var(--site-bg-image, none)', color: 'var(--site-fg)', WebkitTextFillColor: 'inherit' }}>
+      <div className="min-h-screen transition-colors duration-300 relative overflow-hidden" style={{ backgroundColor: 'var(--site-bg)', backgroundImage: 'var(--site-bg-image, none)', color: 'var(--site-fg)', WebkitTextFillColor: 'inherit' }}>
         <AmbientOrb />
         <SiteNav showNav={introPhase === 'nav' || introPhase === 'complete'} transparentOnTop={true} />
         <main>
