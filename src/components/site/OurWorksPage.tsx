@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Play, Volume2, VolumeX, X } from 'lucide-react';
 import { SectionPageWrapper } from '@/components/site/SectionPageWrapper';
 import { fadeInUp } from '@/components/site/SiteChrome';
+import { getCloudinaryVideoUrl } from '@/utils/cloudinary';
 
 interface VideoItem {
   id: number;
@@ -83,12 +84,12 @@ function VideoCard({ p, index, onPlayFullscreen }: { p: VideoItem; index: number
         willChange: 'opacity, transform',
         transform: 'translateZ(0)'
       }}
-      onClick={() => onPlayFullscreen(p.video)}
+      onClick={() => onPlayFullscreen(getCloudinaryVideoUrl(p.video))}
     >
       <div className="relative h-[220px] md:h-[260px] overflow-hidden bg-[#05050A]">
         <video
           ref={videoRef}
-          src={p.video}
+          src={getCloudinaryVideoUrl(p.video)}
           muted={isMuted}
           playsInline
           loop={false}

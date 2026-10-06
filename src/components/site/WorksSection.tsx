@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from '@tanstack/react-router';
 import { ArrowRight, Play, Film, Target, PlayCircle, Activity, Sparkles, Volume2, VolumeX, X } from 'lucide-react';
 import { SectionEyebrow, fadeInUp } from '@/components/site/SiteChrome';
+import { getCloudinaryVideoUrl } from '@/utils/cloudinary';
 
 const worksData = [
   // Showreel / Brand Films
@@ -69,12 +70,12 @@ function HorizontalVideoCard({ p, index, onPlayFullscreen }: { p: typeof worksDa
       onMouseLeave={handleMouseLeave}
       className="group relative rounded-[20px] overflow-hidden bg-[var(--site-bg)] dark:bg-transparent border border-[var(--site-border)] transition-shadow hover:shadow-xl cursor-pointer flex flex-col"
       style={{ willChange: 'opacity, transform', transform: 'translateZ(0)' }}
-      onClick={() => onPlayFullscreen(p.video)}
+      onClick={() => onPlayFullscreen(getCloudinaryVideoUrl(p.video))}
     >
       <div className="relative h-[220px] md:h-[260px] overflow-hidden bg-[#05050A]">
         <video
           ref={videoRef}
-          src={p.video}
+          src={getCloudinaryVideoUrl(p.video)}
           muted={isMuted}
           playsInline
           loop={false}
